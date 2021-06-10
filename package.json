@@ -1,0 +1,26 @@
+{
+  "name": "wechat-mini-program-api-mock",
+  "version": "0.0.1",
+  "description": "微信小程序接口mock",
+  "main": "lib/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bugszhou/wechat-mini-program-api-mock.git"
+  },
+  "keywords": [
+    "wechat",
+    "mini-program",
+    "jest",
+    "mock",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bugszhou/wechat-mini-program-api-mock/issues"
+  },
+  "homepage": "https://github.com/bugszhou/wechat-mini-program-api-mock#readme"
+}
