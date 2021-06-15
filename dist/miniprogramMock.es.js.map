@@ -1,0 +1,1 @@
+{"version":3,"file":"miniprogramMock.es.js","sources":["../src/miniprogramMock.ts"],"sourcesContent":["global.wx.removeStorageSync = jest.fn();\n\n// {\n//   removeStorageSync() {},\n//   setStorageSync() {},\n//   getStorageSync() {},\n// };\n\nexport {};\n"],"names":[],"mappings":"AAAA,MAAM,CAAC,EAAE,CAAC,iBAAiB,GAAG,IAAI,CAAC,EAAE,EAAE"}

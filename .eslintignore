@@ -1,0 +1,10 @@
+scripts/**/*.js
+scripts/**/*.ts
+node_modules/*.js
+src/globals.d.ts
+src/customer.d.ts
+__tests__/**/*.js
+tests/**/*.js
+**/jest.config.js
+.eslintrc.js
+dist/**/*

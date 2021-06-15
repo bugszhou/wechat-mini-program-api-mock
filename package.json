@@ -2,9 +2,19 @@
   "name": "wechat-mini-program-api-mock",
   "version": "0.0.1",
   "description": "微信小程序接口mock",
-  "main": "lib/global.ts",
+  "main": "dist/miniprogramMock.min.js",
+  "module": "dist/miniprogramMock.es.js",
+  "types": "typings/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ext .ts --ext .tsx src -c .eslintrc.js",
+    "fix": "npm run lint --fix",
+    "prebuild": "rimraf dist",
+    "dev": "rollup -c rollup.config.ts -w",
+    "build": "tsc --module commonjs && rollup -c rollup.config.ts",
+    "precommit": "lint-staged",
+    "commit": "git-cz",
+    "husky": "node node_modules/husky/lib/installer/bin install",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -23,7 +33,36 @@
     "url": "https://github.com/bugszhou/wechat-mini-program-api-mock/issues"
   },
   "homepage": "https://github.com/bugszhou/wechat-mini-program-api-mock#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.1.1",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^14.14.25",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "commitlint": "^11.0.0",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "git-cz": "^4.7.6",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.4",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.38.5",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "ts-jest": "^26.5.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
   "dependencies": {
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.2",
+    "jest": "^26.6.3"
   }
 }
