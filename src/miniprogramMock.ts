@@ -1,3 +1,5 @@
+import "./wxMock";
+
 interface IMockOptions {
   /**
    * 接口别名，用来保证唯一性
