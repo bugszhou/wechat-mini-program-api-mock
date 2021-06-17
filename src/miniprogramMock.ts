@@ -8,6 +8,14 @@ interface IMockOptions {
   [key: string]: any;
 }
 
+if (global.wx) {
+  global.wx = {
+    ...global.wx,
+  };
+} else {
+  global.wx = {};
+}
+
 const cache: any = {};
 
 class MockWxApi {
