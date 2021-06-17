@@ -10,9 +10,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "declaration": true,
-    "declarationDir": "./types",
+    "declarationDir": "./typings",
     "outDir": "dist",
     "typeRoots": ["node_modules/@types"]
   },
-  "include": ["src", "typings"]
+  "include": ["src", "types"]
 }
