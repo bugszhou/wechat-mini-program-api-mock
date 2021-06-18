@@ -1,4 +1,18 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import "./wxMock";
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      wx: {
+        [key: string]: any;
+      };
+    }
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+declare const wx: NodeJS.Global["wx"];
 
 interface IMockOptions {
   /**
@@ -81,7 +95,7 @@ class MockWxApi {
     return this;
   }
 
-  success(res: any) {
+  success(res?: any) {
     if (typeof res === "undefined" || res === null) {
       this.resData = null;
     } else {
@@ -92,7 +106,7 @@ class MockWxApi {
     return global.wx[cache[this.cacheKey].apiName];
   }
 
-  fail(err: any) {
+  fail(err?: any) {
     if (typeof err === "undefined" || err === null) {
       this.errData = null;
     } else {

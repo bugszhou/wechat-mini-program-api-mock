@@ -1,4 +1,13 @@
 import "./wxMock";
+declare global {
+    namespace NodeJS {
+        interface Global {
+            wx: {
+                [key: string]: any;
+            };
+        }
+    }
+}
 interface IMockOptions {
     /**
      * 接口别名，用来保证唯一性
@@ -13,8 +22,8 @@ declare class MockWxApi {
     private errData;
     constructor(apiName: string, options?: IMockOptions);
     name(aliasName: string): this;
-    success(res: any): any;
-    fail(err: any): any;
+    success(res?: any): any;
+    fail(err?: any): any;
 }
 declare class Mock {
     mock(apiName: string, options?: IMockOptions): MockWxApi;

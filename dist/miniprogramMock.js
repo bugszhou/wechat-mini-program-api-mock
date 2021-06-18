@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/no-namespace */
 require("./wxMock");
 if (global.wx) {
     global.wx = __assign({}, global.wx);
