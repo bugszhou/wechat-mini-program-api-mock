@@ -1,9 +1,10 @@
+/// <reference types="jest" />
 import "./wxMock";
 declare global {
     namespace NodeJS {
         interface Global {
             wx: {
-                [key: string]: any;
+                [key: string]: jest.Mock;
             };
         }
     }
@@ -22,8 +23,8 @@ declare class MockWxApi {
     private errData;
     constructor(apiName: string, options?: IMockOptions);
     name(aliasName: string): this;
-    success(res?: any): any;
-    fail(err?: any): any;
+    success(res?: any): jest.Mock<any, any>;
+    fail(err?: any): jest.Mock<any, any>;
 }
 declare class Mock {
     mock(apiName: string, options?: IMockOptions): MockWxApi;

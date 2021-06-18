@@ -5,7 +5,7 @@ declare global {
   namespace NodeJS {
     interface Global {
       wx: {
-        [key: string]: any;
+        [key: string]: jest.Mock;
       };
     }
   }
