@@ -14,6 +14,7 @@ export default class MockWxApi {
   private cacheKey = "no key";
   private resData = null;
   private errData = null;
+  private mockType = "success";
 
   constructor(apiName: string, options?: IMockOptions) {
     if (options) {
@@ -44,7 +45,7 @@ export default class MockWxApi {
               // do nothing
             };
 
-      if (this.resData) {
+      if (this.mockType === "success") {
         const resData = cache[this.cacheKey].resData;
         if (typeof resData === "function") {
           success(resData());
@@ -52,9 +53,10 @@ export default class MockWxApi {
           success(cache[this.cacheKey].resData);
         }
         complete();
+        return;
       }
 
-      if (this.errData) {
+      if (this.mockType === "fail") {
         const errData = cache[this.cacheKey].errData;
         if (typeof errData === "function") {
           fail(errData());
@@ -72,22 +74,16 @@ export default class MockWxApi {
   }
 
   success(res?: any) {
-    if (typeof res === "undefined" || res === null) {
-      this.resData = null;
-    } else {
-      this.resData = res;
-    }
+    this.mockType = "success";
+    this.resData = res;
 
     cache[this.cacheKey].resData = this.resData;
     return global.wx[cache[this.cacheKey].apiName];
   }
 
   fail(err?: any) {
-    if (typeof err === "undefined" || err === null) {
-      this.errData = null;
-    } else {
-      this.errData = err;
-    }
+    this.mockType = "fail";
+    this.errData = err;
 
     cache[this.cacheKey].errData = this.errData;
     return global.wx[cache[this.cacheKey].apiName];
