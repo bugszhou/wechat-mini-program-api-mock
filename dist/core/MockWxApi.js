@@ -7,6 +7,7 @@ var MockWxApi = /** @class */ (function () {
         this.cacheKey = "no key";
         this.resData = null;
         this.errData = null;
+        this.mockType = "success";
         if (options) {
             this.cacheKey = apiName + "." + JSON.stringify(options);
         }
@@ -30,7 +31,7 @@ var MockWxApi = /** @class */ (function () {
                 : function () {
                     // do nothing
                 };
-            if (_this.resData) {
+            if (_this.mockType === "success") {
                 var resData = cache[_this.cacheKey].resData;
                 if (typeof resData === "function") {
                     success(resData());
@@ -39,8 +40,9 @@ var MockWxApi = /** @class */ (function () {
                     success(cache[_this.cacheKey].resData);
                 }
                 complete();
+                return;
             }
-            if (_this.errData) {
+            if (_this.mockType === "fail") {
                 var errData = cache[_this.cacheKey].errData;
                 if (typeof errData === "function") {
                     fail(errData());
@@ -57,22 +59,14 @@ var MockWxApi = /** @class */ (function () {
         return this;
     };
     MockWxApi.prototype.success = function (res) {
-        if (typeof res === "undefined" || res === null) {
-            this.resData = null;
-        }
-        else {
-            this.resData = res;
-        }
+        this.mockType = "success";
+        this.resData = res;
         cache[this.cacheKey].resData = this.resData;
         return global.wx[cache[this.cacheKey].apiName];
     };
     MockWxApi.prototype.fail = function (err) {
-        if (typeof err === "undefined" || err === null) {
-            this.errData = null;
-        }
-        else {
-            this.errData = err;
-        }
+        this.mockType = "fail";
+        this.errData = err;
         cache[this.cacheKey].errData = this.errData;
         return global.wx[cache[this.cacheKey].apiName];
     };
