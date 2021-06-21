@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-namespace */
 require("./wxMock");
-require("./core/MockWxGlobal");
+var MockWxGlobal_1 = require("./core/MockWxGlobal");
 var MockWxApi_1 = require("./core/MockWxApi");
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // declare const wx: NodeJS.Global["wx"];
@@ -23,6 +23,7 @@ if (global.wx) {
 else {
     global.wx = {};
 }
+MockWxGlobal_1.default();
 var Mock = /** @class */ (function () {
     function Mock() {
     }

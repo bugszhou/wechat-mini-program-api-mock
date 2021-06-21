@@ -1,1 +1,1 @@
-{"version":3,"file":"MockWxGlobal.js","sourceRoot":"","sources":["../../src/core/MockWxGlobal.ts"],"names":[],"mappings":";AAAA,MAAM,CAAC,eAAe,GAAG,IAAI,CAAC,EAAE,EAAE,CAAC"}
+{"version":3,"file":"MockWxGlobal.js","sourceRoot":"","sources":["../../src/core/MockWxGlobal.ts"],"names":[],"mappings":";;AAAA,SAAwB,UAAU;IAChC,MAAM,CAAC,eAAe,GAAG,IAAI,CAAC,EAAE,EAAE,CAAC;IACnC,MAAM,CAAC,MAAM,GAAG,IAAI,CAAC,EAAE,EAAE,CAAC;AAC5B,CAAC;AAHD,6BAGC"}
