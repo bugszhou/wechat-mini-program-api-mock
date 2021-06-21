@@ -375,12 +375,11 @@ Object.defineProperty(global, "wx", {
     value: wxMock,
 });
 
-if (global.wx) {
-    global.wx = __assign({}, global.wx);
+function mockGlobal() {
+    global.getCurrentPages = jest.fn();
+    global.getApp = jest.fn();
 }
-else {
-    global.wx = {};
-}
+
 var cache = {};
 var MockWxApi = /** @class */ (function () {
     function MockWxApi(apiName, options) {
@@ -459,11 +458,25 @@ var MockWxApi = /** @class */ (function () {
     };
     return MockWxApi;
 }());
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// declare const wx: NodeJS.Global["wx"];
+if (global.wx) {
+    global.wx = __assign({}, global.wx);
+}
+else {
+    global.wx = {};
+}
+mockGlobal();
 var Mock = /** @class */ (function () {
     function Mock() {
     }
     Mock.prototype.mock = function (apiName, options) {
         return new MockWxApi(apiName, options);
+    };
+    Mock.prototype.mockGlobal = function (apiName) {
+        global[apiName] = jest.fn();
+        return global[apiName];
     };
     return Mock;
 }());
