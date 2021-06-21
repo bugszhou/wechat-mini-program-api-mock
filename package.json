@@ -1,6 +1,6 @@
 {
   "name": "wechat-mini-program-api-mock",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "微信小程序接口mock",
   "main": "dist/miniprogramMock.min.js",
   "module": "dist/miniprogramMock.es.js",
