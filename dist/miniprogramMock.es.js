@@ -387,11 +387,7 @@ function mockGlobal() {
 var cache = {};
 var MockWxApi = /** @class */ (function () {
     function MockWxApi(apiName, options) {
-        var _this = this;
         this.cacheKey = "no key";
-        this.resData = null;
-        this.errData = null;
-        this.mockType = "success";
         if (options) {
             this.cacheKey = apiName + "." + JSON.stringify(options);
         }
@@ -399,63 +395,72 @@ var MockWxApi = /** @class */ (function () {
         cache[this.cacheKey] = {
             apiName: apiName,
         };
-        global.wx[apiName] = jest.fn().mockImplementation(function (apiOptions) {
-            var success = apiOptions && apiOptions.success
-                ? apiOptions.success
-                : function () {
-                    // do nothing
-                };
-            var fail = apiOptions && apiOptions.fail
-                ? apiOptions.fail
-                : function () {
-                    // do nothing
-                };
-            var complete = apiOptions && apiOptions.complete
-                ? apiOptions.complete
-                : function () {
-                    // do nothing
-                };
-            if (_this.mockType === "success") {
-                var resData = cache[_this.cacheKey].resData;
-                if (typeof resData === "function") {
-                    success(resData());
-                }
-                else {
-                    success(cache[_this.cacheKey].resData);
-                }
-                complete();
-                return;
-            }
-            if (_this.mockType === "fail") {
-                var errData = cache[_this.cacheKey].errData;
-                if (typeof errData === "function") {
-                    fail(errData());
-                }
-                else {
-                    fail(cache[_this.cacheKey].errData);
-                }
-                complete();
-            }
-        });
+        global.wx[apiName] = jest.fn();
     }
     MockWxApi.prototype.name = function (aliasName) {
         this.cacheKey = aliasName;
         return this;
     };
     MockWxApi.prototype.success = function (res) {
-        this.mockType = "success";
-        this.resData = res;
-        cache[this.cacheKey].resData = this.resData;
-        return global.wx[cache[this.cacheKey].apiName];
+        global.wx[cache[this.cacheKey].apiName].mockImplementation(mockSuccessReturn(res));
+        return this;
+    };
+    MockWxApi.prototype.successOnce = function (res) {
+        global.wx[cache[this.cacheKey].apiName].mockImplementationOnce(mockSuccessReturn(res));
+        return this;
     };
     MockWxApi.prototype.fail = function (err) {
-        this.mockType = "fail";
-        this.errData = err;
-        cache[this.cacheKey].errData = this.errData;
-        return global.wx[cache[this.cacheKey].apiName];
+        global.wx[cache[this.cacheKey].apiName].mockImplementation(mockFailReturn(err));
+        return this;
+    };
+    MockWxApi.prototype.failOnce = function (err) {
+        global.wx[cache[this.cacheKey].apiName].mockImplementationOnce(mockFailReturn(err));
+        return this;
     };
     return MockWxApi;
 }());
+function mockSuccessReturn(data) {
+    return function (apiOptions) {
+        var success = apiOptions && apiOptions.success
+            ? apiOptions.success
+            : function () {
+                // do nothing
+            };
+        var complete = apiOptions && apiOptions.complete
+            ? apiOptions.complete
+            : function () {
+                // do nothing
+            };
+        if (typeof data === "function") {
+            success(data());
+        }
+        else {
+            success(data);
+        }
+        complete();
+    };
+}
+function mockFailReturn(data) {
+    return function (apiOptions) {
+        var fail = apiOptions && apiOptions.fail
+            ? apiOptions.fail
+            : function () {
+                // do nothing
+            };
+        var complete = apiOptions && apiOptions.complete
+            ? apiOptions.complete
+            : function () {
+                // do nothing
+            };
+        if (typeof data === "function") {
+            fail(data());
+        }
+        else {
+            fail(data);
+        }
+        complete();
+    };
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // declare const wx: NodeJS.Global["wx"];
