@@ -73,12 +73,15 @@ function mockSuccessReturn(data: any): (options?: any) => void {
         : () => {
             // do nothing
           };
+    let result = data;
     if (typeof data === "function") {
-      success(data());
+      result = data();
+      success(result);
     } else {
       success(data);
     }
     complete();
+    return result;
   };
 }
 
