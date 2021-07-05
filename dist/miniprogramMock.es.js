@@ -431,13 +431,16 @@ function mockSuccessReturn(data) {
             : function () {
                 // do nothing
             };
+        var result = data;
         if (typeof data === "function") {
-            success(data());
+            result = data();
+            success(result);
         }
         else {
             success(data);
         }
         complete();
+        return result;
     };
 }
 function mockFailReturn(data) {
